@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>長榮中學 114下 國三地科 二段考 大補帖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+  :root {
+    --primary: #1a3a5c;
+    --accent: #c0392b;
+    --gold: #b8860b;
+    --light-bg: #f5f0e8;
+    --card-bg: #ffffff;
+    --border: #d4c9b0;
+    --text-main: #1a1a2e;
+    --text-muted: #555;
+    --correct-bg: #e8f5e9;
+    --correct-border: #2e7d32;
+    --tag-geo: #1565c0;
+    --tag-plate: #6a1a8a;
+    --tag-rock: #5d4037;
+    --tag-ocean: #00695c;
+    --tag-astro: #1a237e;
+    --tag-weather: #e65100;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--light-bg);
+    color: var(--text-main);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .no-print { display: none !important; }
+    .answer-card { break-inside: avoid; }
+    .section-title { break-after: avoid; }
+    header { background: white !important; color: black !important; border-bottom: 3px solid #1a3a5c; }
+    header .subtitle { color: #555 !important; }
+    .answer-box { box-shadow: none; border: 2px solid #1a3a5c; }
+  }
+
+  header {
+    background: var(--primary);
+    color: white;
+    padding: 24px 32px 20px;
+    border-bottom: 5px solid var(--gold);
+  }
+  header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  header .subtitle {
+    color: #a0b8d0;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  header .info-row {
+    margin-top: 10px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  header .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 12px;
+    color: #ddeeff;
+  }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px 16px; }
+
+  /* ANSWER QUICK LIST */
+  .answer-box {
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  .answer-box h2 {
+    font-family: 'Noto Serif TC', serif;
+    color: var(--primary);
+    font-size: 16px;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .answer-box h2::before {
+    content: '📋';
+    font-size: 18px;
+  }
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+  }
+  @media (max-width: 600px) {
+    .answer-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+  .answer-cell {
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 2px;
+    font-size: 13px;
+  }
+  .answer-cell .qnum {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.2;
+  }
+  .answer-cell .ans {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    font-family: 'Noto Serif TC', serif;
+  }
+  .answer-cell:hover { background: #fff0f0; }
+
+  /* CATEGORY TABS */
+  .category-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .tab-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid currentColor;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover, .tab-btn.active {
+    color: white !important;
+  }
+  .tab-btn[data-cat="all"] { color: var(--primary); }
+  .tab-btn[data-cat="all"]:hover, .tab-btn[data-cat="all"].active { background: var(--primary); border-color: var(--primary); }
+  .tab-btn[data-cat="地質"] { color: var(--tag-rock); }
+  .tab-btn[data-cat="地質"]:hover, .tab-btn[data-cat="地質"].active { background: var(--tag-rock); border-color: var(--tag-rock); }
+  .tab-btn[data-cat="板塊"] { color: var(--tag-plate); }
+  .tab-btn[data-cat="板塊"]:hover, .tab-btn[data-cat="板塊"].active { background: var(--tag-plate); border-color: var(--tag-plate); }
+  .tab-btn[data-cat="地震"] { color: var(--tag-geo); }
+  .tab-btn[data-cat="地震"]:hover, .tab-btn[data-cat="地震"].active { background: var(--tag-geo); border-color: var(--tag-geo); }
+  .tab-btn[data-cat="海洋"] { color: var(--tag-ocean); }
+  .tab-btn[data-cat="海洋"]:hover, .tab-btn[data-cat="海洋"].active { background: var(--tag-ocean); border-color: var(--tag-ocean); }
+  .tab-btn[data-cat="天文"] { color: var(--tag-astro); }
+  .tab-btn[data-cat="天文"]:hover, .tab-btn[data-cat="天文"].active { background: var(--tag-astro); border-color: var(--tag-astro); }
+  .tab-btn[data-cat="天氣"] { color: var(--tag-weather); }
+  .tab-btn[data-cat="天氣"]:hover, .tab-btn[data-cat="天氣"].active { background: var(--tag-weather); border-color: var(--tag-weather); }
+
+  /* QUESTION CARDS */
+  .question-cards { display: flex; flex-direction: column; gap: 20px; }
+
+  .qcard {
+    background: var(--card-bg);
+    border-radius: 10px;
+    border-left: 5px solid var(--primary);
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: transform 0.15s;
+  }
+  .qcard:hover { transform: translateX(2px); }
+  .qcard.hidden { display: none; }
+
+  .qcard-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .qnum-badge {
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .qcard-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+  .cat-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .cat-地質 { background: var(--tag-rock); }
+  .cat-板塊 { background: var(--tag-plate); }
+  .cat-地震 { background: var(--tag-geo); }
+  .cat-海洋 { background: var(--tag-ocean); }
+  .cat-天文 { background: var(--tag-astro); }
+  .cat-天氣 { background: var(--tag-weather); }
+
+  .correct-answer {
+    background: var(--correct-bg);
+    border: 1.5px solid var(--correct-border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin: 8px 0 12px;
+    font-weight: 700;
+    color: var(--correct-border);
+    font-size: 14px;
+  }
+  .correct-answer span { font-size: 16px; margin-right: 4px; }
+
+  .explanation {
+    background: #f7f4ee;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333;
+  }
+  .explanation h4 {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .explanation .key-point {
+    background: #fff3cd;
+    border-left: 3px solid var(--gold);
+    padding: 6px 10px;
+    margin-top: 8px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12.5px;
+  }
+  .explanation .wrong-analysis {
+    color: #c0392b;
+    font-size: 12.5px;
+    margin-top: 6px;
+    padding-left: 8px;
+    border-left: 2px solid #e74c3c;
+  }
+
+  .qcard[data-cat="地質"] { border-left-color: var(--tag-rock); }
+  .qcard[data-cat="地質"] .qnum-badge { background: var(--tag-rock); }
+  .qcard[data-cat="板塊"] { border-left-color: var(--tag-plate); }
+  .qcard[data-cat="板塊"] .qnum-badge { background: var(--tag-plate); }
+  .qcard[data-cat="地震"] { border-left-color: var(--tag-geo); }
+  .qcard[data-cat="地震"] .qnum-badge { background: var(--tag-geo); }
+  .qcard[data-cat="海洋"] { border-left-color: var(--tag-ocean); }
+  .qcard[data-cat="海洋"] .qnum-badge { background: var(--tag-ocean); }
+  .qcard[data-cat="天文"] { border-left-color: var(--tag-astro); }
+  .qcard[data-cat="天文"] .qnum-badge { background: var(--tag-astro); }
+  .qcard[data-cat="天氣"] { border-left-color: var(--tag-weather); }
+  .qcard[data-cat="天氣"] .qnum-badge { background: var(--tag-weather); }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>長榮中學 114學年度下學期 ・ 國三地球科學 ・ 第二次段考</h1>
+  <div class="subtitle">試題範圍：單元 1～5 ｜ 考前終極大補帖 ✦ 每題附答案 + 詳細解析</div>
+  <div class="info-row">
+    <span class="badge">🪨 地質岩石</span>
+    <span class="badge">🌍 板塊構造</span>
+    <span class="badge">🌊 海洋地理</span>
+    <span class="badge">🌟 天文宇宙</span>
+    <span class="badge">🌦 氣象天氣</span>
+    <span class="badge">共 40 題 × 2.5 分</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ANSWER QUICK LIST -->
+  <div class="answer-box">
+    <h2>答案快速對照表</h2>
+    <div class="answer-grid" id="answerGrid"></div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="category-tabs no-print">
+    <button class="tab-btn active" data-cat="all">全部 40 題</button>
+    <button class="tab-btn" data-cat="地質">🪨 地質岩石</button>
+    <button class="tab-btn" data-cat="板塊">🌍 板塊構造</button>
+    <button class="tab-btn" data-cat="地震">🔴 地震斷層</button>
+    <button class="tab-btn" data-cat="海洋">🌊 海洋河流</button>
+    <button class="tab-btn" data-cat="天文">🌟 天文宇宙</button>
+    <button class="tab-btn" data-cat="天氣">🌦 氣象天氣</button>
+  </div>
+
+  <!-- QUESTION CARDS -->
+  <div class="question-cards" id="questionCards"></div>
+
+</div>
+
+<footer>
+  長榮中學 地球科學科 ・ 114學年度下學期第二次段考 大補帖 ・ 僅供複習使用
+</footer>
+
+<script>
+const questions = [
+  {
+    n: 1, cat: "地震",
+    q: "右圖為發生地震後，地層斷裂產生位移情形的示意圖。圖中甲、乙分別為斷裂後所形成之斷塊，則下列敘述何者正確？",
+    ans: "D",
+    ansText: "(Ｄ)若原先地表有一河流由東向西流，則在斷層處易形成瀑布",
+    exp: `<h4>【斷層與斷塊判斷】</h4>
+    由圖可知甲塊相對上移（上盤）、乙塊相對下移（下盤）。<br>
+    <b>答案D正確：</b>斷層活動後，原本平坦的河床出現落差，水流在斷層處形成瀑布，這是典型的<b>斷層瀑布</b>（斷層崖）地形。<br>
+    <div class="wrong-analysis">
+    ✗ (A) 甲做相對<b>向上</b>運動（上磐），不是向下<br>
+    ✗ (B) 上磐是斷層面<b>上方</b>岩層，即甲，不是乙<br>
+    ✗ (C) 圖示為擠壓（逆斷層）或走向，非張裂作用（正斷層）
+    </div>
+    <div class="key-point">🔑 記憶口訣：上盤相對上移＝逆斷層；上盤相對下移＝正斷層（張裂）</div>`,
+  },
+  {
+    n: 2, cat: "地質",
+    q: "右圖為某地的地質剖面示意圖，其中岩層甲、乙均為沉積岩，丙為一岩漿冷卻形成的岩脈。若此地地層均未經過倒轉，關於甲、乙、丙形成的先後順序關係，下列推論何者最合理？",
+    ans: "A",
+    ansText: "(Ａ)丙切穿甲、乙，故丙最晚形成",
+    exp: `<h4>【地層新舊判斷原則】</h4>
+    地質學兩大定律：<br>
+    1. <b>疊置律</b>：未倒轉地層中，下方岩層較老（故乙比甲老）<br>
+    2. <b>截切律（切穿律）</b>：切穿其他岩層的地質體，一定比被切穿的岩層還<b>新</b><br>
+    丙岩脈切穿了甲和乙，∴ 丙最晚形成，順序為：乙→甲→丙<br>
+    <div class="wrong-analysis">
+    ✗ (B) 甲在乙上方，故甲比乙<b>晚</b>形成，乙較老，非乙較晚<br>
+    ✗ (C) 丙最晚，非介於甲乙之間<br>
+    ✗ (D) 位置最下方不代表最早，要看切穿關係
+    </div>
+    <div class="key-point">🔑 截切律：誰切穿誰，切穿的那個最年輕！</div>`,
+  },
+  {
+    n: 3, cat: "地質",
+    q: "科學家依地殼成分的不同，將其分為大陸地殼與海洋地殼。下列關於大陸地殼與海洋地殼「厚度」與「主要岩石」的比較，何者正確？",
+    ans: "B",
+    ansText: "(Ｂ)大陸地殼＞海洋地殼；大陸：花岡岩，海洋：玄武岩",
+    exp: `<h4>【地殼種類比較】</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#e8eaf6;"><th style="padding:4px 8px;border:1px solid #ccc">項目</th><th style="padding:4px 8px;border:1px solid #ccc">大陸地殼</th><th style="padding:4px 8px;border:1px solid #ccc">海洋地殼</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">厚度</td><td style="padding:4px 8px;border:1px solid #ccc"><b>厚（約35km）</b></td><td style="padding:4px 8px;border:1px solid #ccc">薄（約6km）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">主要岩石</td><td style="padding:4px 8px;border:1px solid #ccc"><b>花岡岩</b>（矽鋁質）</td><td style="padding:4px 8px;border:1px solid #ccc"><b>玄武岩</b>（矽鎂質）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">密度</td><td style="padding:4px 8px;border:1px solid #ccc">較小</td><td style="padding:4px 8px;border:1px solid #ccc">較大</td></tr>
+    </table>
+    <div class="key-point">🔑 花岡岩→大陸地殼；玄武岩→海洋地殼。大陸厚但密度小、海洋薄但密度大！</div>`,
+  },
+  {
+    n: 4, cat: "地質",
+    q: "下列有關化石的推論，何者錯誤？",
+    ans: "C",
+    ansText: "(Ｃ)地層中出現三葉蟲化石，可判定該地層為古生代的「陸地」沉積岩層",
+    exp: `<h4>【化石推論的錯誤】</h4>
+    三葉蟲是古生代的<b>海洋生物</b>，出現三葉蟲化石的地層應為<b>古生代的「海洋」沉積岩層</b>，不是陸地！這是選項C的錯誤所在。<br>
+    <div class="wrong-analysis">（此題問「錯誤」，故選C）</div>
+    其他選項驗證：<br>
+    ✓ (A) 長毛象→寒冷氣候，正確<br>
+    ✓ (B) 珊瑚→熱帶溫暖清澈淺海，正確<br>
+    ✓ (D) 玉山有海相化石→曾是海洋→後來隆起，正確<br>
+    <div class="key-point">🔑 三葉蟲＝古生代海洋指準化石；菊石＝中生代海洋；劍齒虎＝新生代陸地</div>`,
+  },
+  {
+    n: 5, cat: "地質",
+    q: "右圖為某地區的地層剖面示意圖，依據圖中地形所示，推論下列有關 1、2、3、4 四座山頭形成原因的敘述何者最合理？",
+    ans: "A",
+    ansText: "(Ａ)地層受擠壓後，岩層因風化侵蝕程度不同而形成",
+    exp: `<h4>【差異侵蝕與地形形成】</h4>
+    圖中山頭高低起伏，是因為地層受<b>擠壓形成褶皺</b>後，不同岩層的<b>抗風化、抗侵蝕能力不同</b>，較硬的岩層保留形成山頭，較軟的岩層被侵蝕形成谷地。<br>
+    這稱為<b>差異侵蝕</b>（Differential Erosion）。<br>
+    <div class="wrong-analysis">
+    ✗ (B) 變質作用不會直接形成山頭地形<br>
+    ✗ (C) 沒有火山活動的跡象<br>
+    ✗ (D) 斷層形成的是斷層崖，非這種波浪狀山頭
+    </div>
+    <div class="key-point">🔑 褶皺＋差異侵蝕→形成嶺谷相間的地形</div>`,
+  },
+  {
+    n: 6, cat: "板塊",
+    q: "板塊相互碰撞的隱沒帶會形成海溝，而在海洋板塊的張裂帶會形成中洋脊。下列對於這兩者的比較，何者正確？",
+    ans: "B",
+    ansText: "(Ｂ)海溝與中洋脊皆會發生地震",
+    exp: `<h4>【海溝vs.中洋脊比較】</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#e8f5e9;"><th style="padding:4px 8px;border:1px solid #ccc">項目</th><th style="padding:4px 8px;border:1px solid #ccc">海溝</th><th style="padding:4px 8px;border:1px solid #ccc">中洋脊</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">位置</td><td style="padding:4px 8px;border:1px solid #ccc">多在海底，少數靠近陸地</td><td style="padding:4px 8px;border:1px solid #ccc">海底（但冰島露出地面）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">板塊作用</td><td style="padding:4px 8px;border:1px solid #ccc">聚合（碰撞隱沒）</td><td style="padding:4px 8px;border:1px solid #ccc">張裂（分離）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">地震</td><td style="padding:4px 8px;border:1px solid #ccc">✅有（常有強震）</td><td style="padding:4px 8px;border:1px solid #ccc">✅有（中小型地震）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">火山</td><td style="padding:4px 8px;border:1px solid #ccc">隱沒帶旁有火山弧</td><td style="padding:4px 8px;border:1px solid #ccc">裂谷內有岩漿湧出</td></tr>
+    </table>
+    <div class="key-point">🔑 兩處都有地震！中洋脊雖是張裂帶，仍有地震活動。</div>`,
+  },
+  {
+    n: 7, cat: "板塊",
+    q: "根據地震波波速變化可知，地球內部可分為地殼、地函、地核三層。上述分層與岩石圈和軟流圈的關係，下列何者最合理？",
+    ans: "D",
+    ansText: "(Ｄ)岩石圈包括了地殼與一小部分的地函",
+    exp: `<h4>【地球圈層結構】</h4>
+    地球分層有兩套系統：<br>
+    <b>化學成分</b>：地殼／地函／地核<br>
+    <b>力學性質</b>：岩石圈／軟流圈／中圈…<br><br>
+    關鍵概念：<br>
+    ・<b>岩石圈</b>＝地殼＋地函頂部（約100km）→ 堅硬，板塊就是岩石圈的碎片<br>
+    ・<b>軟流圈</b>＝地函中部（部分熔融，能流動）→ 不等於整個地函！<br>
+    <div class="wrong-analysis">
+    ✗ (A) 岩石圈＞地殼（多了地函頂部）<br>
+    ✗ (B) 軟流圈只是地函的一部分，非全部<br>
+    ✗ (C) 軟流圈在地函內，不包含地殼
+    </div>
+    <div class="key-point">🔑 岩石圈 = 地殼 + 地函上部（記：100km以內）</div>`,
+  },
+  {
+    n: 8, cat: "地質",
+    q: "如右圖，隧道中的地層呈現垂直層狀的排列，關於此種垂直層狀的地質構造，下列判斷何者正確？",
+    ans: "C",
+    ansText: "(Ｃ)此構造是岩層受力作用的證據",
+    exp: `<h4>【岩層受力變形—褶皺/翻轉】</h4>
+    沉積岩原本以<b>水平方式</b>堆積，若岩層變成<b>垂直排列</b>，代表岩層受到強烈的<b>側向擠壓力</b>，使地層翻轉近90°。<br>
+    這是典型的岩層受力（構造運動）證據。<br>
+    <div class="wrong-analysis">
+    ✗ (A) 岩脈是岩漿侵入，不會產生垂直層狀排列<br>
+    ✗ (B) 侵蝕作用是去除物質，不會造成地層翻轉<br>
+    ✗ (D) 沉積岩原始沉積狀態是<b>水平</b>，不是垂直
+    </div>
+    <div class="key-point">🔑 原水平岩層→受擠壓→傾斜或垂直＝地層受力的直接證據</div>`,
+  },
+  {
+    n: 9, cat: "地震",
+    q: "小麗查詢兩次地震離她家最近測站的震度，第一次3級，第二次2級。這兩次地震的搖晃程度與釋放能量大小比較，下列何者正確？",
+    ans: "D",
+    ansText: "(Ｄ)第一次地震的搖晃程度較大，但無法比較釋放能量的差異",
+    exp: `<h4>【震度vs.規模的重要區別】</h4>
+    ・<b>震度（Intensity）</b>：某地點感受到的搖晃程度，與距離、地盤有關→第一次震度3>2，確定搖晃更大<br>
+    ・<b>規模（Magnitude）</b>：地震本身釋放的能量大小→與震度<b>不同</b>！<br><br>
+    題目只告訴我們「震度」（3級、2級），沒有說「規模」，所以<b>無法比較釋放的能量</b>。<br>
+    (遠處大地震可能震度小；近處小地震可能震度大)<br>
+    <div class="key-point">🔑 震度≠規模！震度是感覺，規模才代表能量大小。會考最常混淆的概念！</div>`,
+  },
+  {
+    n: 10, cat: "地質",
+    q: "在甲、乙兩地中，岩層皆未發生倒轉與變動。甲地三個岩層分別含Ⅰ三葉蟲、Ⅱ恐龍、Ⅲ劍齒虎化石；乙地兩個岩層分別含Ⅳ恐龍和Ⅴ三葉蟲化石。根據化石紀錄，下列推測何者正確？",
+    ans: "A",
+    ansText: "(Ａ)甲地岩層Ⅲ中含有新生代的化石",
+    exp: `<h4>【化石與地質年代對應】</h4>
+    地質年代與代表化石：<br>
+    ・<b>古生代</b>：三葉蟲（Ⅰ、Ⅴ）→最老<br>
+    ・<b>中生代</b>：恐龍（Ⅱ、Ⅳ）<br>
+    ・<b>新生代</b>：劍齒虎（Ⅲ）→最新<br><br>
+    甲地未倒轉：Ⅰ（最下/最老）→Ⅱ→Ⅲ（最上/最新）<br>
+    ∴ 岩層Ⅲ含劍齒虎＝<b>新生代</b>化石 ✓<br>
+    <div class="wrong-analysis">
+    ✗ (B) 三葉蟲（古生代）比恐龍（中生代）早，恐龍化石反而較晚形成<br>
+    ✗ (C) 三葉蟲代表古生代「海洋」環境，非陸地<br>
+    ✗ (D) 乙地有三葉蟲（海洋生物），曾有海洋環境
+    </div>
+    <div class="key-point">🔑 古生代→中生代→新生代；三葉蟲→恐龍→劍齒虎/人類</div>`,
+  },
+  {
+    n: 11, cat: "地質",
+    q: "阿祥進行地質調查時，根據岩層剖面推論出此地岩層過去主要的受力方向如圖所示（水平擠壓）。下列各種不同的岩層剖面中，何者最不可能是阿祥當時所看到的剖面？",
+    ans: "D",
+    ansText: "(Ｄ)（正斷層或張裂地形的剖面）",
+    exp: `<h4>【受力方向與地質構造】</h4>
+    受<b>水平擠壓</b>力作用，地層會產生：<br>
+    ・褶皺（向斜、背斜）<br>
+    ・逆斷層（上盤上移）<br>
+    ・地層縮短變厚<br><br>
+    <b>不可能出現</b>的構造：<br>
+    ・正斷層（是張裂環境的產物）<br>
+    ・地層水平拉伸、地塹地形<br>
+    選項D呈現的是張裂地形或正斷層，與擠壓力方向矛盾。<br>
+    <div class="key-point">🔑 擠壓→逆斷層、褶皺；張裂→正斷層、地塹。力的方向決定構造類型！</div>`,
+  },
+  {
+    n: 12, cat: "地質",
+    q: "附圖為甲、乙兩種岩類的照片及說明，丙為一種作用。甲的碎屑物質經過長時間的丙後，會成為乙。下列有關甲、乙、丙的敘述，何者最合理？",
+    ans: "C",
+    ansText: "(Ｃ)丙：壓密與膠結作用，碎屑顆粒緊密膠結在一起",
+    exp: `<h4>【沉積岩的形成過程】</h4>
+    岩石循環中，<b>碎屑物質</b>（風化後的顆粒）→沉積→<b>壓密膠結</b>→形成沉積岩：<br>
+    ・甲＝火成岩或其他岩石（提供碎屑）<br>
+    ・乙＝沉積岩（碎屑岩）<br>
+    ・丙＝<b>壓密與膠結作用</b>（Compaction & Cementation）<br><br>
+    壓密：上層重量將顆粒壓緊<br>
+    膠結：礦物質（如碳酸鈣、矽）填充孔隙，將顆粒黏在一起<br>
+    <div class="key-point">🔑 沉積岩形成三步驟：風化→搬運沉積→壓密膠結</div>`,
+  },
+  {
+    n: 13, cat: "地質",
+    q: "常見的碎屑沉積岩有三種：(甲)砂岩；(乙)頁岩；(丙)礫岩。若依沉積物顆粒大小，由大而小排列，應為下列何者？",
+    ans: "B",
+    ansText: "(Ｂ)丙→甲→乙",
+    exp: `<h4>【碎屑沉積岩顆粒大小】</h4>
+    碎屑沉積岩按顆粒由大到小排列：<br>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#fce4ec;"><th style="padding:4px 8px;border:1px solid #ccc">岩石</th><th style="padding:4px 8px;border:1px solid #ccc">顆粒</th><th style="padding:4px 8px;border:1px solid #ccc">顆粒大小</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>礫岩</b>（丙）</td><td style="padding:4px 8px;border:1px solid #ccc">礫石</td><td style="padding:4px 8px;border:1px solid #ccc">&gt; 2mm</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>砂岩</b>（甲）</td><td style="padding:4px 8px;border:1px solid #ccc">砂粒</td><td style="padding:4px 8px;border:1px solid #ccc">0.0625~2mm</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>頁岩</b>（乙）</td><td style="padding:4px 8px;border:1px solid #ccc">泥、黏土</td><td style="padding:4px 8px;border:1px solid #ccc">&lt; 0.0625mm</td></tr>
+    </table>
+    由大到小：<b>丙（礫岩）→甲（砂岩）→乙（頁岩）</b><br>
+    <div class="key-point">🔑 礫→砂→泥，顆粒越來越細！頁岩最細，像紙頁般薄層剝離。</div>`,
+  },
+  {
+    n: 14, cat: "地質",
+    q: "右圖是一條河流由源頭到出海口的剖面示意圖，則下列敘述何者錯誤？",
+    ans: "A",
+    ansText: "(Ａ)b處的河床中有大量的細沙沉積（錯誤選項）",
+    exp: `<h4>【河流侵蝕沉積作用】</h4>
+    河流不同段的特性：<br>
+    ・<b>a處</b>（上游）：坡度陡、流速快→侵蝕力強→搬運大顆粒（礫石）<br>
+    ・<b>b處</b>（中游）：中等坡度→搬運中→以砂礫為主<br>
+    ・<b>c處</b>（下游/出海口）：坡度平緩→流速慢→沉積最旺盛，多細沙、泥<br><br>
+    選項A說b處有大量細沙沉積，<b>錯誤</b>！b處應以砂礫為主，細沙多在c處（下游）沉積。<br>
+    而鵝卵石（被磨圓的礫石）也在上中游（a、b），不在c處。<br>
+    <div class="wrong-analysis">✗ (D) c處發現鵝卵石→也是錯誤敘述，但本題答案是A</div>
+    <div class="key-point">🔑 上游=侵蝕、中游=搬運、下游=沉積；鵝卵石在上中游！</div>`,
+  },
+  {
+    n: 15, cat: "地質",
+    q: "有關玄武岩與花岡岩的比較，下列哪些敘述錯誤？(甲)兩者均是顏色均勻的岩石；(乙)玄武岩在地表附近生成，花岡岩在地下深處生成；(丙)玄武岩結晶顆粒較小，花岡岩結晶顆粒較大；(丁)玄武岩冷卻速度較慢，花岡岩冷卻速度較快。",
+    ans: "B",
+    ansText: "(Ｂ)甲丁",
+    exp: `<h4>【玄武岩vs.花岡岩比較】</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#e3f2fd;"><th style="padding:4px 8px;border:1px solid #ccc">項目</th><th style="padding:4px 8px;border:1px solid #ccc">玄武岩</th><th style="padding:4px 8px;border:1px solid #ccc">花岡岩</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">生成位置</td><td style="padding:4px 8px;border:1px solid #ccc">地表（噴出岩）</td><td style="padding:4px 8px;border:1px solid #ccc">地下深處（侵入岩）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">冷卻速度</td><td style="padding:4px 8px;border:1px solid #ccc"><b>快</b></td><td style="padding:4px 8px;border:1px solid #ccc"><b>慢</b></td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">結晶顆粒</td><td style="padding:4px 8px;border:1px solid #ccc"><b>小</b>（細粒）</td><td style="padding:4px 8px;border:1px solid #ccc"><b>大</b>（粗粒）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">顏色</td><td style="padding:4px 8px;border:1px solid #ccc">深色（均勻）</td><td style="padding:4px 8px;border:1px solid #ccc"><b>有不同色礦物</b>（不均勻）</td></tr>
+    </table>
+    錯誤的是<b>甲</b>（花岡岩顏色不均勻）和<b>丁</b>（玄武岩冷卻<b>快</b>，花岡岩冷卻<b>慢</b>）<br>
+    <div class="key-point">🔑 冷卻慢→結晶大→花岡岩（肉眼可見大晶體）；冷卻快→結晶小→玄武岩</div>`,
+  },
+  {
+    n: 16, cat: "地質",
+    q: "一般而言河流對地表的作用，最終會造成什麼影響？",
+    ans: "C",
+    ansText: "(Ｃ)使地表的高低落差逐漸縮小",
+    exp: `<h4>【河流對地形的長期影響】</h4>
+    河流的長期侵蝕和沉積作用：<br>
+    ・高處→被侵蝕→搬運到低處→沉積<br>
+    ・結果：高山越來越低，低地越來越高<br>
+    ・最終趨勢：地表被<b>夷平</b>（準平原化），高低落差<b>縮小</b><br>
+    <div class="key-point">🔑 河流長期作用的終極目標：夷平地表、減少落差。（除非有地殼抬升補充）</div>`,
+  },
+  {
+    n: 17, cat: "板塊",
+    q: "中洋脊的裂谷相當於火山口，由中洋脊湧出之岩漿冷卻凝固後會形成何種火成岩？",
+    ans: "A",
+    ansText: "(Ａ)玄武岩",
+    exp: `<h4>【中洋脊岩漿與岩石類型】</h4>
+    中洋脊是海洋板塊<b>張裂</b>之處，地函岩漿從此湧出：<br>
+    ・岩漿在海底（水中）迅速冷卻→冷卻速度<b>極快</b><br>
+    ・快速冷卻→結晶細小→形成<b>玄武岩</b><br>
+    ・海洋地殼主要就是玄武岩組成的！<br>
+    <div class="key-point">🔑 中洋脊→玄武岩（噴出岩）；海洋地殼＝玄武岩；大陸地殼＝花岡岩</div>`,
+  },
+  {
+    n: 18, cat: "地震",
+    q: "右圖是某地的地質剖面示意圖，該地有一斷層經過，依據此斷層在地表的破裂位置，將其劃分為甲、乙二區。若斷層再次活動而產生地震，斷層兩側岩層移動方向如圖中箭號所示（上盤上移），則下列有關此斷層的類型及地震的震央位置之敘述，何者最合理？",
+    ans: "B",
+    ansText: "(Ｂ)逆斷層，震央可能位於甲區",
+    exp: `<h4>【斷層類型與震央判斷】</h4>
+    <b>逆斷層</b>：上盤（斷層面上方岩層）相對<b>向上</b>移動→擠壓環境<br>
+    <b>正斷層</b>：上盤相對向下移動→張裂環境<br>
+    由圖中箭號：上方岩層向上移動＝<b>逆斷層</b>✓<br><br>
+    <b>震央</b>（Epicenter）：地震震源正上方的地表位置<br>
+    震源在斷層上，斷層破裂活動的地方最接近震源，震央位於斷層通過地表的位置→<b>甲區</b>（斷層面在地表的開口處）<br>
+    <div class="key-point">🔑 逆斷層＝擠壓＝上盤上移；正斷層＝張裂＝上盤下移</div>`,
+  },
+  {
+    n: 19, cat: "板塊",
+    q: "請根據附圖的板塊分布圖，找出何處的地形或地質構造配對有誤？",
+    ans: "D",
+    ansText: "(Ｄ)甲處可見一凹陷區（錯誤）",
+    exp: `<h4>【板塊邊界與地形】</h4>
+    不同板塊邊界形成不同地形：<br>
+    ・<b>張裂帶</b>（海洋）→中洋脊（突出海底的山脊）<br>
+    ・<b>聚合帶（海洋對海洋）</b>→海溝<br>
+    ・<b>聚合帶（大陸對大陸）</b>→高山（如喜馬拉雅山）<br>
+    ・<b>大陸張裂帶</b>→地塹（如東非大裂谷）<br><br>
+    若甲處是中洋脊，應為凸起的海底山脊，<b>不是凹陷區</b>→選項D有誤<br>
+    <div class="key-point">🔑 中洋脊＝海底山脈（凸出）；海溝＝海底凹陷（最深）</div>`,
+  },
+  {
+    n: 20, cat: "板塊",
+    q: "圖(一)為某地現在的板塊交界示意圖（一側有海溝，另側有中洋脊），圖(二)為全球的主要板塊邊界示意圖，則圖(一)最可能是在描述圖(二)中甲、乙、丙、丁的何處？",
+    ans: "C",
+    ansText: "(Ｃ)丙",
+    exp: `<h4>【全球板塊位置辨識】</h4>
+    圖(一)特徵：一端有<b>中洋脊</b>（張裂），另端有<b>海溝</b>（隱沒），中間為海洋板塊向大陸板塊隱沒。<br>
+    這是典型的<b>太平洋型板塊邊界</b>（環太平洋）——對應圖(二)的<b>丙</b>處（太平洋東岸，如南美洲西岸納斯卡板塊隱沒帶）。<br>
+    <div class="key-point">🔑 太平洋板塊被多個大陸板塊圍繞，東西兩側均有大型隱沒帶與海溝</div>`,
+  },
+  {
+    n: 21, cat: "板塊",
+    q: "已知研究船在甲、乙、丙三地採樣並測得其海洋地殼形成的時間分別為8百萬年前、17百萬年前、40百萬年前。若此中洋脊兩側張裂的速率相同，下列有關三地與板塊邊界距離遠近的比較關係，何者最合理？",
+    ans: "A",
+    ansText: "(Ａ)與中洋脊距離必為甲＜乙＜丙",
+    exp: `<h4>【海底擴張與地殼年齡】</h4>
+    中洋脊處岩漿湧出後，隨板塊向外擴張：<br>
+    ・越靠近中洋脊→地殼越<b>年輕</b>（年齡小）<br>
+    ・越遠離中洋脊→地殼越<b>老</b>（年齡大）<br><br>
+    甲（8百萬年）＜乙（17百萬年）＜丙（40百萬年）<br>
+    年齡越大→距中洋脊越遠<br>
+    ∴ 與中洋脊距離：甲＜乙＜丙 ✓<br>
+    <div class="key-point">🔑 海底擴張定律：年齡越老＝離中洋脊越遠（如年輪由中心向外）</div>`,
+  },
+  {
+    n: 22, cat: "板塊",
+    q: "如圖，甲位於中洋脊上，乙位於海溝上，丙位於一陸地的山脈上且有火山活動。將甲、乙、丙三地連線的地下構造，繪製成板塊構造剖面示意圖，並以箭頭表示板塊運動方向，則下列何者最合理？",
+    ans: "B",
+    ansText: "(Ｂ)（海洋板塊在中洋脊生成→向乙（海溝）移動→隱沒至大陸板塊下方）",
+    exp: `<h4>【板塊構造剖面圖解讀】</h4>
+    標準的「海洋板塊隱沒型」剖面（如太平洋東岸）：<br>
+    甲（中洋脊）→ 海洋板塊向右擴張 → 乙（海溝）→ 海洋板塊向下隱沒→ 丙（大陸山脈+火山弧）<br><br>
+    選項B正確顯示：<br>
+    ・甲處兩側板塊向外擴張（張裂）<br>
+    ・乙處一板塊向下隱沒（聚合）<br>
+    ・丙處因隱沒板塊熔融，岩漿上升形成火山<br>
+    <div class="key-point">🔑 中洋脊→隱沒帶→火山弧，是完整的板塊構造循環！</div>`,
+  },
+  {
+    n: 23, cat: "天文",
+    q: "右圖為太陽系中幾顆行星的比較，根據這些星球的特性來判斷，圖中的X軸與Y軸單位依序最可能為下列何者？",
+    ans: "C",
+    ansText: "(C)密度、與太陽的平均距離（AU）",
+    exp: `<h4>【行星分類：類地行星vs.類木行星】</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#e8eaf6;"><th style="padding:4px 8px;border:1px solid #ccc">特性</th><th style="padding:4px 8px;border:1px solid #ccc">類地行星（水金地火）</th><th style="padding:4px 8px;border:1px solid #ccc">類木行星（木土天海）</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">距離太陽</td><td style="padding:4px 8px;border:1px solid #ccc">近（&lt;2AU）</td><td style="padding:4px 8px;border:1px solid #ccc">遠（&gt;5AU）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">密度</td><td style="padding:4px 8px;border:1px solid #ccc">大（岩石質，約4~5g/cm³）</td><td style="padding:4px 8px;border:1px solid #ccc">小（氣體質，約1g/cm³）</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc">體積</td><td style="padding:4px 8px;border:1px solid #ccc">小</td><td style="padding:4px 8px;border:1px solid #ccc">大</td></tr>
+    </table>
+    若X軸是密度（類地高/類木低），Y軸是距離（類地近/類木遠），兩組行星會明顯分開，最合理。<br>
+    <div class="key-point">🔑 類地行星：小、密、近；類木行星：大、輕（密度小）、遠</div>`,
+  },
+  {
+    n: 24, cat: "天文",
+    q: "下表為太陽系八大行星之中的其中四顆行星的資料，下列何者正確？",
+    ans: "D",
+    ansText: "(D)欲分類類地或類木行星，可以使用上表資料中的「密度」作為分類參考",
+    exp: `<h4>【行星分類依據】</h4>
+    分類類地/類木行星的最佳指標：<br>
+    ・<b>密度</b>：類地行星密度大（>3g/cm³），類木行星密度小（~1g/cm³）→<b>最有效的分類依據</b><br>
+    ・表面重力不一定是好的分類依據（因質量和半徑均影響重力）<br><br>
+    <div class="wrong-analysis">
+    ✗ (A) 表面重力不是分類類地/類木的標準<br>
+    ✗ (B) 類地行星是水金地火，非丙丁<br>
+    ✗ (C) 類木行星體積遠大於類地，乙體積不一定小於甲
+    </div>
+    <div class="key-point">🔑 密度是區分類地（岩石）vs.類木（氣體）行星的最佳指標！</div>`,
+  },
+  {
+    n: 25, cat: "天文",
+    q: "在秋季夜空可看到組成飛馬座的大四邊形，其中包括X、Y兩顆恆星。已知X星距地球約335光年，Y星距地球約140光年，下列敘述何者最合理？",
+    ans: "A",
+    ansText: "(A)X、Y兩顆恆星皆位於銀河系內",
+    exp: `<h4>【星系尺度判斷】</h4>
+    ・<b>銀河系</b>直徑約<b>10萬光年</b><br>
+    ・X星：335光年；Y星：140光年<br>
+    ・兩者都遠小於10萬光年→兩者都在銀河系<b>內部</b>，只是附近的鄰居恆星<br><br>
+    <div class="wrong-analysis">
+    ✗ (B) 兩星都在銀河系內，同一星系<br>
+    ✗ (C) 光速相同，X更遠→X的光傳到地球反而更<b>慢</b><br>
+    ✗ (D) 現在看到X星是它<b>335年前</b>發出的光，非335年後
+    </div>
+    <div class="key-point">🔑 光年＝光走一年的距離；看到的是過去的星光！335光年=335年前的樣子</div>`,
+  },
+  {
+    n: 26, cat: "天文",
+    q: "右圖是由地球北極上方的俯視圖，位於地點X的人們可見太陽出現在正南方的天空。下列有關地點Y的敘述，何者最正確？",
+    ans: "D",
+    ansText: "(Ｄ)地點Y位於地點X的西方，太陽即將從地平面升起",
+    exp: `<h4>【地球自轉與太陽方位】</h4>
+    北極俯視：地球<b>逆時針</b>自轉（自西向東轉）<br>
+    ・X處：太陽在正南方→X在中午（12:00）<br>
+    ・太陽在東方=早晨；在南方=中午；在西方=下午；在背面=午夜<br><br>
+    若Y在X的<b>西方</b>（俯視圖中X的逆時針前方）：<br>
+    ・Y相對X還未轉到中午→Y仍在早晨，太陽即將從東方（地平面）升起✓<br>
+    <div class="key-point">🔑 北極俯視：逆時針轉；X正午→西邊的Y尚未到正午→Y是早晨日出前</div>`,
+  },
+  {
+    n: 27, cat: "天文",
+    q: "承上題，目前地點Y的時間約是？",
+    ans: "A",
+    ansText: "(A)06:00",
+    exp: `<h4>【時區與地方時計算】</h4>
+    X在正午（12:00），Y在X的正西方90°（俯視圖中相差1/4圓）：<br>
+    ・地球自轉一圈360°=24小時，∴90°=6小時<br>
+    ・Y在X西方→Y的時間比X<b>慢</b>6小時<br>
+    ・12:00 - 6小時 = <b>06:00</b>（早上六點，日出時分）✓<br>
+    <div class="key-point">🔑 東邊時間較快（早）；西邊時間較慢（晚）。每15°相差1小時。</div>`,
+  },
+  {
+    n: 28, cat: "天文",
+    q: "某地12月23日下午6點，獵戶座正從東方的地平面升起。圖(二)為地球繞日公轉的示意圖，箭頭代表地球自轉方向。試問此地區的人須朝哪一個方向，最可能看到獵戶座東升？",
+    ans: "C",
+    ansText: "(Ｃ)丙",
+    exp: `<h4>【星座東升與地球位置】</h4>
+    12月23日（接近冬至）→地球在公轉軌道上的位置：太陽在摩羯座方向，獵戶座在太陽對面。<br><br>
+    12月下午6點→太陽剛落下，東方的夜空中獵戶座升起。<br>
+    地球公轉示意圖中，冬至時地球在圖(二)中特定位置，東方（自轉方向的前方）朝向<b>丙</b>方向即可看到獵戶座。<br>
+    <div class="key-point">🔑 夜晚可見的星座在太陽對面；12月的獵戶座是冬季代表星座（傍晚東升）</div>`,
+  },
+  {
+    n: 29, cat: "天文",
+    q: "右圖表示某日地球晝夜的示意圖，白色部分為當時地球受太陽照射的部分。已知Y、Z二地皆位於赤道上，W、X為北半球的某二地。關於W、X、Y、Z在當日的白天與黑夜時間長度關係，下列敘述何者最合理？",
+    ans: "B",
+    ansText: "(Ｂ)W地的黑夜時間長度較其它三地短",
+    exp: `<h4>【晝夜長短判斷】</h4>
+    由圖判斷：北半球照射範圍大→此時為<b>北半球夏季</b>（太陽直射北半球）<br>
+    ・W在北半球高緯度：北半球夏季→白天最長、黑夜最短<br>
+    ・Y、Z在赤道：晝夜幾乎等長（12小時）<br>
+    ・X在北半球低緯度：白天>12小時，但黑夜比W長<br><br>
+    ∴ W的黑夜最短→W黑夜長度較其他三地短✓<br>
+    <div class="key-point">🔑 夏季北半球：緯度越高，白天越長（極晝現象）；黑夜最短在高緯</div>`,
+  },
+  {
+    n: 30, cat: "天文",
+    q: "右圖是某城市在一年中的夜晚時間變化曲線圖，依據圖形，請問這個城市最有可能位於下列哪一緯度？",
+    ans: "B",
+    ansText: "(Ｂ)南緯25度",
+    exp: `<h4>【夜晚時間曲線與緯度判斷】</h4>
+    關鍵：觀察<b>最長黑夜</b>出現在哪個月份：<br>
+    ・若最長黑夜在<b>6月（夏至）</b>→此地在<b>南半球</b>（南半球6月是冬季，黑夜最長）<br>
+    ・北半球：最長黑夜在12月（冬至）<br><br>
+    圖中最長夜晚在6月附近→南半球<br>
+    夜晚最長/最短變化幅度不超過極端→緯度不高→南緯25度（非南極圈66.5°）✓<br>
+    <div class="key-point">🔑 北半球12月夜最長；南半球6月夜最長。從曲線的峰谷判斷南北半球！</div>`,
+  },
+  {
+    n: 31, cat: "天文",
+    q: "6月6日與7月23日的傍晚，小寶在同一位置觀察太陽西沉的情形。若小寶5月31日到同一位置觀察太陽西下，當天的太陽最可能從哪一個位置落入山脈後方？",
+    ans: "C",
+    ansText: "(Ｃ)位置丙",
+    exp: `<h4>【太陽日落方位的季節變化】</h4>
+    在北半球（台灣），太陽日落方位的季節規律：<br>
+    ・夏至（6月21日）→日落最偏<b>西北</b><br>
+    ・春秋分（3/9月21日）→日落正西<br>
+    ・冬至（12月21日）→日落最偏<b>西南</b><br><br>
+    5月31日（在6月6日之前，稍早）→接近夏至前，日落方位在西北，比6月6日稍偏南（西北偏南一點）→應為圖中丙位置（介於6月6日和春分之間的位置）<br>
+    <div class="key-point">🔑 台灣夏天日落偏北（西北），冬天日落偏南（西南）。越近夏至越偏北！</div>`,
+  },
+  {
+    n: 32, cat: "天文",
+    q: "住在北緯40度的阿信希望在夏至正午時，太陽可以直射頂樓的太陽能板，故將太陽能板朝向正南方放置。關於圖中太陽能板與水平屋頂間的夾角θ，下列何者最符合阿信的需求？",
+    ans: "A",
+    ansText: "(A)16.5°",
+    exp: `<h4>【太陽仰角計算】</h4>
+    夏至正午，北緯40度的太陽仰角：<br>
+    ・夏至太陽直射<b>北緯23.5°</b>（北回歸線）<br>
+    ・北緯40度的正午太陽仰角 = 90° - (40° - 23.5°) = 90° - 16.5° = <b>73.5°</b><br><br>
+    太陽能板要讓陽光垂直射入（最大效能）：<br>
+    ・板面與陽光垂直→板面仰角 = 太陽仰角 = 73.5°<br>
+    ・板面與水平面的夾角 θ = 90° - 73.5° = <b>16.5°</b> ✓<br>
+    <div class="key-point">🔑 公式：夏至正午仰角 = 90° - (當地緯度 - 23.5°)；θ = 90° - 仰角</div>`,
+  },
+  {
+    n: 33, cat: "天文",
+    q: "小恩在台灣居住，他發現每日正午時，陽光從窗戶照射進教室內的範圍會變化，正午陽光直接照射到的範圍，從第1排逐漸擴大至第3排，再逐漸縮至第2排。推測最可能是他觀察的時間區間？",
+    ans: "D",
+    ansText: "(Ｄ)冬至前後",
+    exp: `<h4>【正午陽光入射角的季節變化（台灣）】</h4>
+    台灣位於北半球（約北緯23.5°附近）：<br>
+    ・<b>冬至</b>：太陽直射南回歸線，台灣正午太陽仰角<b>最低</b>→陽光最斜→照射入室內最<b>深</b>（照到最多排）<br>
+    ・<b>夏至</b>：太陽直射北回歸線，正午仰角最高→陽光最直→照射入室內最<b>淺</b><br><br>
+    從範圍「擴大至最大後縮小」→中間有一個極大值→最深點在<b>冬至</b>附近<br>
+    觀察從第1排到第3排再到第2排→從擴大到收縮，冬至前後最合理。<br>
+    <div class="key-point">🔑 冬天陽光斜射→室內照得深；夏天仰角高→照得淺（接近直射）</div>`,
+  },
+  {
+    n: 34, cat: "海洋",
+    q: "阿信在新竹的新月沙灣玩水，發現海浪打到沙灘上的位置：8點→10點更低，12點更低，2點比12點更高。根據潮汐影響，推算當地的滿潮或乾潮時間？",
+    ans: "B",
+    ansText: "(Ｂ)乾潮時間可能在中午12點～下午2點間",
+    exp: `<h4>【潮汐判讀】</h4>
+    ・海浪打到沙灘「位置低」→海水面低→<b>乾潮（低潮）</b><br>
+    ・海浪打到沙灘「位置高」→海水面高→<b>滿潮（高潮）</b><br><br>
+    觀察結果：<br>
+    8點→10點→12點：位置越來越低（持續退潮）<br>
+    12點→14點：位置開始升高（開始漲潮）<br><br>
+    ∴ 最低點（乾潮）出現在<b>12點至14點之間</b>✓<br>
+    <div class="key-point">🔑 位置最低點=乾潮；位置最高點=滿潮。看趨勢反轉的時間點！</div>`,
+  },
+  {
+    n: 35, cat: "天氣",
+    q: "某座島的東北方有一個冷氣團，西南方有一個暖氣團。若冷氣團勢力比暖氣團強而形成鋒面，使島上降雨且變冷，則下列何者最能表示此時該鋒面在地面天氣圖上的位置與方向？",
+    ans: "B",
+    ansText: "(Ｂ)（冷鋒符號，鋒面由東北向西南推進）",
+    exp: `<h4>【冷鋒天氣圖符號】</h4>
+    ・<b>冷鋒</b>：冷氣團主動向暖氣團推進→天氣圖上用<b>藍色三角形</b>指向暖氣團方向<br>
+    ・本題：冷氣團在東北，暖氣團在西南，冷氣團勢力強→冷鋒向西南推進<br>
+    ・冷鋒過境：氣溫驟降、短時間強降雨<br><br>
+    選項B的鋒面符號（三角形朝西南）最符合此情境。<br>
+    <div class="key-point">🔑 冷鋒=藍色三角▶朝暖氣團；暖鋒=紅色半圓●朝冷氣團；滯留鋒=兩側均有</div>`,
+  },
+  {
+    n: 36, cat: "天氣",
+    q: "右圖為北半球某地區的地面天氣簡圖，若不考慮地形的影響，下列對於甲、乙二地的敘述或比較，何者正確？",
+    ans: "D",
+    ansText: "(Ｄ)X處應該是標註為\"L\"（低氣壓）",
+    exp: `<h4>【天氣圖中高低氣壓判讀】</h4>
+    判斷X是高壓或低壓：<br>
+    ・若等壓線中心氣壓比周圍<b>低</b>→L（低氣壓/氣旋）<br>
+    ・若等壓線中心氣壓比周圍<b>高</b>→H（高氣壓/反氣旋）<br><br>
+    由圖中等壓線分布，X處是等壓線閉合中心且氣壓偏低→應標為<b>L（低氣壓）</b>✓<br>
+    <div class="wrong-analysis">
+    ✗ (A) 低壓區通常為暖濕不穩定氣團，非「高壓且溫暖」<br>
+    ✗ (B) 甲乙兩地因在不同氣壓帶，風向不同<br>
+    ✗ (C) 需比較等壓線數值判斷
+    </div>
+    <div class="key-point">🔑 低氣壓(L)=氣流輻合上升=多雲雨；高氣壓(H)=氣流輻散下沉=晴天</div>`,
+  },
+  {
+    n: 37, cat: "天氣",
+    q: "右圖為地面等壓線的示意圖，黑線為等壓線，單位為百帕。甲、乙兩地的地表皆為晴朗無雲的天氣系統。根據圖中資訊判斷，A、B、C、D四點的氣壓值何者正確？",
+    ans: "A",
+    ansText: "(A)PA=1008hpa",
+    exp: `<h4>【等壓線氣壓值判讀】</h4>
+    等壓線圖判讀規則：<br>
+    ・相鄰等壓線間距相等（通常每條差4hPa）<br>
+    ・晴朗無雲→高氣壓系統（等壓線向外遞減或中心高）<br><br>
+    根據圖中等壓線分布，A點位於特定等壓線上或附近：<br>
+    A點氣壓值=<b>1008 hPa</b>✓（由圖中相鄰標示值推算）<br>
+    <div class="key-point">🔑 等壓線：同一條線上各點氣壓相同；從已知值向內/外推算未標示點</div>`,
+  },
+  {
+    n: 38, cat: "天氣",
+    q: "如右圖所示，當颱風中心分別位於甲、乙兩位置時，對臺灣東、西部所造成天氣變化的影響，下列敘述何者正確？",
+    ans: "B",
+    ansText: "(Ｂ)當颱風位於乙位置時，東部風雨較小，西部風雨較大",
+    exp: `<h4>【颱風路徑與台灣東西部天氣】</h4>
+    颱風對台灣的影響關鍵在<b>迎風面vs.背風面</b>：<br>
+    ・颱風在台灣<b>東方（乙）</b>時：<br>
+      - 東部：颱風中心外圍，但地形障礙，風雨相對較小<br>
+      - 西部：反而受颱風外圍環流影響，<b>風雨較大</b>（偏南或偏北氣流繞過台灣帶來水氣）<br>
+    ・颱風在台灣<b>西方（甲）</b>時：東部直接受颱風影響，風雨較大<br>
+    <div class="key-point">🔑 颱風在台灣東方→台灣西部風雨反而較大（西部是迎風面方向）</div>`,
+  },
+  {
+    n: 39, cat: "天氣",
+    q: "附圖為某日北半球的日本周邊地面天氣簡圖，已知當天東京的地面風向受到天氣系統甲的影響以偏東北風為主。若不考慮地形的影響，下列有關此天氣系統甲與當天秋田主要地面風向的敘述何者正確？",
+    ans: "C",
+    ansText: "(Ｃ)甲為高氣壓，風向以北風為主",
+    exp: `<h4>【北半球高低氣壓風向判斷】</h4>
+    北半球風向規則（科氏力影響）：<br>
+    ・<b>高氣壓（反氣旋）</b>：氣流由中心向外<b>順時針</b>輻散<br>
+    ・<b>低氣壓（氣旋）</b>：氣流向中心<b>逆時針</b>輻合<br><br>
+    東京風向為偏東北風，若甲在東京西北方（日本海）：<br>
+    ・東京在甲的東南側→高壓順時針→東京吹偏東北風✓（符合題目條件）<br>
+    ・甲為高氣壓，秋田在甲的南側→順時針→秋田吹偏<b>北風</b>✓<br>
+    <div class="key-point">🔑 北半球高壓=順時針輻散；低壓=逆時針輻合。根據風向反推氣壓類型！</div>`,
+  },
+  {
+    n: 40, cat: "天氣",
+    q: "關於鋒面的敘述，下列何者正確？",
+    ans: "D",
+    ansText: "(Ｄ)若冷空氣將暖空氣推移且抬升，在鋒面附近和後方常有降雨",
+    exp: `<h4>【鋒面種類與天氣特性】</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;margin:6px 0;">
+    <tr style="background:#fff3e0;"><th style="padding:4px 8px;border:1px solid #ccc">鋒面種類</th><th style="padding:4px 8px;border:1px solid #ccc">形成方式</th><th style="padding:4px 8px;border:1px solid #ccc">天氣特徵</th></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>冷鋒</b></td><td style="padding:4px 8px;border:1px solid #ccc">冷→推暖</td><td style="padding:4px 8px;border:1px solid #ccc">鋒後短暫強降雨、氣溫驟降</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>暖鋒</b></td><td style="padding:4px 8px;border:1px solid #ccc">暖→推冷（暖沿冷氣團爬升）</td><td style="padding:4px 8px;border:1px solid #ccc">鋒前廣大範圍綿雨</td></tr>
+    <tr><td style="padding:4px 8px;border:1px solid #ccc"><b>滯留鋒</b></td><td style="padding:4px 8px;border:1px solid #ccc">冷暖勢力相當</td><td style="padding:4px 8px;border:1px solid #ccc">連續降雨（梅雨！）</td></tr>
+    </table>
+    選D：冷空氣推暖氣並使暖氣<b>抬升</b>（冷鋒）→鋒面附近和後方有降雨✓<br>
+    <div class="wrong-analysis">
+    ✗ (A) 暖空氣向冷氣團推移時，是<b>暖空氣</b>沿冷氣團上爬（暖鋒），冷氣不爬升<br>
+    ✗ (B) 冷空氣推暖→是<b>冷鋒</b>，非暖鋒<br>
+    ✗ (C) 勢力相當→滯留鋒→連續降雨，非晴朗
+    </div>
+    <div class="key-point">🔑 冷鋒：後方降雨（快但短）；暖鋒：前方降雨（慢但長）；滯留鋒：梅雨！</div>`,
+  },
+];
+
+// Build answer grid
+const answerGrid = document.getElementById('answerGrid');
+const answers = ['D','A','B','C','A','B','D','C','D','A','D','C','B','A','B','C','A','B','D','C','A','B','C','D','A','D','A','C','B','B','C','A','D','B','B','D','A','B','C','D'];
+answers.forEach((ans, i) => {
+  const cell = document.createElement('div');
+  cell.className = 'answer-cell';
+  cell.innerHTML = `<div class="qnum">${i+1}</div><div class="ans">${ans}</div>`;
+  answerGrid.appendChild(cell);
+});
+
+// Build question cards
+const container = document.getElementById('questionCards');
+questions.forEach(q => {
+  const card = document.createElement('div');
+  card.className = 'qcard';
+  card.setAttribute('data-cat', q.cat);
+  card.innerHTML = `
+    <div class="qcard-header">
+      <div class="qnum-badge">${q.n}</div>
+      <div class="qcard-title">${q.q} <span class="cat-tag cat-${q.cat}">${q.cat}</span></div>
+    </div>
+    <div class="correct-answer"><span>✅</span> 答案：${q.ans} ｜ ${q.ansText}</div>
+    <div class="explanation">${q.exp}</div>
+  `;
+  container.appendChild(card);
+});
+
+// Filter tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.getAttribute('data-cat');
+    document.querySelectorAll('.qcard').forEach(card => {
+      if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
